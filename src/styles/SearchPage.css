@@ -1,0 +1,19 @@
+.search-form button,
+.search-form input {
+    padding: 10px 20px;
+}
+
+.search-form button:hover {
+    cursor: pointer;
+}
+
+
+.search-result {
+    padding: 20px 0;
+}
+
+.search-result ul {
+    list-style-type: none;
+    padding: 20px 0;
+
+}
