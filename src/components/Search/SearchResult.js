@@ -8,7 +8,7 @@ import { fetchCityWeather } from '../../actions/searchActions';
 class SearchResult extends Component {
 
     componentDidMount() {
-        this.props.fetchCityWeather('WarszawaA');
+        this.props.fetchCityWeather('Warszawa');
     }
 
     render() {
