@@ -1,15 +1,8 @@
 import React, { Component } from 'react';
-
 import { connect } from 'react-redux';
-import { fetchCityWeather } from '../../actions/searchActions';
-
 
 
 class SearchResult extends Component {
-
-    componentDidMount() {
-        this.props.fetchCityWeather('Warszawa');
-    }
 
     render() {
         const { date, error, city, sunrise, sunset, temp, preasure, wind } = this.props.search
@@ -57,4 +50,4 @@ class SearchResult extends Component {
 const mapStateToProps = state => ({
     search: state.search.searchWeather
 })
-export default connect(mapStateToProps, { fetchCityWeather })(SearchResult);
+export default connect(mapStateToProps, null)(SearchResult);

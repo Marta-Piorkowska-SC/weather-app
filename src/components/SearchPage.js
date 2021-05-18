@@ -7,25 +7,10 @@ import '../styles/SearchPage.css'
 
 class SearchPage extends Component {
 
-    HandleInputChange = (e) => {
-        // this.setState({
-        //     value: e.target.value
-        // })
-    }
-
-    HandelCitySubmit = (e) => {
-        e.preventDefault()
-
-    }
-
     render() {
         return (
             <div className='search'>
-                <SearchForm
-                // value={this.state.value}
-                // change={this.HandleInputChange}
-                // submit={this.HandelCitySubmit}
-                />
+                <SearchForm />
                 <SearchResult />
             </div>
         );

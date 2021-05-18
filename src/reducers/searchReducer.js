@@ -2,7 +2,6 @@ import { FETCH_CITY_WEATHER, FETCH_CITY_WEATHER_ERROR } from '../actions/types'
 
 const initialState = {
     searchWeather: {
-        value: '',
         date: '',
         city: '',
         sunrise: '',
@@ -15,11 +14,9 @@ const initialState = {
 }
 
 export default function search(state = initialState, action) {
-    console.log('przed');
-    console.log(state);
-
     switch (action.type) {
         case FETCH_CITY_WEATHER:
+            console.log('FETCH_CITY_WEATHER');
             return {
                 ...state,
                 searchWeather: {
