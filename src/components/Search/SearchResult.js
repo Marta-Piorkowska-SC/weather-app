@@ -1,22 +1,17 @@
 import React, { Component } from 'react';
-
 import { connect } from 'react-redux';
-import { fetchCityWeather } from '../../actions/searchActions';
-
 
 
 class SearchResult extends Component {
 
-    componentDidMount() {
-        this.props.fetchCityWeather('WarszawaA');
-    }
-
     render() {
-        const { date, error, city, sunrise, sunset, temp, preasure, wind } = this.props.search
+      const { city, searchWeather } = this.props;
+        const { date, error, sunrise, sunset, temp, preasure, wind, description, icon } = searchWeather
         let content = null;
         let err = `Nie znaleziono wyników dla miasta ${city}`
         const sunriseTime = new Date(sunrise * 1000).toLocaleTimeString()
         const sunsetTime = new Date(sunset * 1000).toLocaleTimeString()
+        let img = `http://openweathermap.org/img/w/${icon}.png`
 
 
         if (!error && city) {
@@ -24,6 +19,12 @@ class SearchResult extends Component {
                 <div className="search-result">
                     <h4>Wyniki wyszukiwania dla miasta <em>{city}</em></h4>
                     <ul>
+                        <li>
+                            <img src={img} alt="" />
+                        </li>
+                        <li>
+                            {description}
+                        </li>
                         <li>
                             Dane dla dnia i godziny : {date}
                         </li>
@@ -55,6 +56,7 @@ class SearchResult extends Component {
     }
 }
 const mapStateToProps = state => ({
-    search: state.search.searchWeather
+    searchWeather: state.search.searchWeather,
+    city: state.search.city,
 })
-export default connect(mapStateToProps, { fetchCityWeather })(SearchResult);
+export default connect(mapStateToProps, null)(SearchResult);

@@ -1,8 +1,6 @@
-
 import React, { Component } from 'react';
 import './styles/App.css';
 import { BrowserRouter as Router } from 'react-router-dom'
-import Header from './layouts/Header.js'
 import Navigation from './layouts/Navigation.js'
 import Page from './layouts/Page.js'
 import Footer from './layouts/Footer.js'
@@ -13,19 +11,16 @@ class App extends Component {
     return (
       <Router>
         <div className="app">
-          <header>
-            {<Header />}
-          </header>
           <main>
             <aside>
-              {<Navigation />}
+              <Navigation />
             </aside>
             <section className='page'>
-              {<Page />}
+              <Page />
             </section>
           </main>
           <footer>
-            {<Footer />}
+            <Footer />
           </footer>
         </div>
       </Router>

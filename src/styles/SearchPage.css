@@ -1,7 +1,17 @@
-.search-form button,
+.search {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-form {
+    margin-top: 40px;
+}
+
+/* .search-form button,
 .search-form input {
     padding: 10px 20px;
-}
+} */
 
 .search-form button:hover {
     cursor: pointer;
