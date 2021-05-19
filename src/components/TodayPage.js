@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getLocation } from '../actions/searchActions'
+import Spinner from 'react-bootstrap/Spinner';
 
 class TodayPage extends Component {
-
+    state = {
+        loading: true,
+    }
 
     componentDidMount() {
         getLocation();
@@ -11,10 +14,16 @@ class TodayPage extends Component {
 
     render() {
         const { cityName } = this.props.search
+        let spiner = <Spinner animation="border" />
+        const content = `działa`
+
+
         return (
-            <div>
-                <h4>dzisiaj</h4>
-                <p>twoja obecna pozycja to: {cityName} </p>
+            <div className="today-weather">
+
+                {this.state.loading ? spiner : content}
+
+
             </div>
         );
     }

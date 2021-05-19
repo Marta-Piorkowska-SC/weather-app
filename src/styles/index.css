@@ -8,3 +8,8 @@ html {
   font-family: 'opens sans', sans-serif;
   font-size: 20px;
 }
+
+body {
+  background-image: url("../images/dzień.jpg");
+  object-fit: cover
+}

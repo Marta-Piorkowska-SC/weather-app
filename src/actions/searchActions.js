@@ -1,10 +1,8 @@
-import {
-    FETCH_CITY_WEATHER,
-    FETCH_CITY_WEATHER_ERROR,
-    GEOLOCATION_CITY_NAME_LOADING,
-    GEOLOCATION_CITY_NAME,
-    GEOLOCATION_CITY_NAME_ERROR
-} from './types'
+import { FETCH_CITY_WEATHER, FETCH_CITY_WEATHER_ERROR } from './types'
+import { GEOLOCATION_CITY_NAME, GEOLOCATION_CITY_NAME_ERROR } from './types'
+import { FETCH_CITY_POLUTION, FETCH_CITY_POLUTION_ERROR } from './types'
+import { START_LOADING, END_LOADING } from './types'
+
 
 export function getLocation() {
 
@@ -15,12 +13,10 @@ export function getLocation() {
         console.log(lat);
         console.log(lon);
         return function (dispatch) {
-            dispatch({
-                type: GEOLOCATION_CITY_NAME_LOADING,
-                loading: true
-            })
-            // getCityName(lat, lon)
-
+            dispatch(
+                getCityName(lat, lon),
+                startLoading()
+            )
         }
     }
 
@@ -34,22 +30,25 @@ export function getLocation() {
     function errors(err) {
         console.warn(`ERROR(${err.code}): ${err.message}`);
         return function (dispatch) {
-            dispatch({
-                type: GEOLOCATION_CITY_NAME_ERROR,
-                loading: false,
-                error: true,
-            })
+            dispatch(
+                {
+                    type: GEOLOCATION_CITY_NAME_ERROR,
+                    error: true,
+                },
+                endLoading()
+            )
         }
     }
-    return function (despatch) {
+    return function (dispatch) {
+
         if (navigator.geolocation) {
             navigator.permissions
                 .query({ name: "geolocation" })
                 .then(function (result) {
                     if (result.state === "granted") {
-                        navigator.geolocation.getCurrentPosition(despatch(success));
+                        navigator.geolocation.getCurrentPosition(dispatch(success()));
                     } else if (result.state === "prompt") {
-                        navigator.geolocation.getCurrentPosition(despatch(success), despatch(errors), options);
+                        navigator.geolocation.getCurrentPosition(dispatch(success()), dispatch(errors()), options);
                     } else if (result.state === "denied") {
                         alert("Odmówiłeś podania swojej obecnej pozycji");
                     }
@@ -61,6 +60,7 @@ export function getLocation() {
             alert("Nie można pobrać twojej obecnej pozycji");
         }
     }
+
 
 }
 
@@ -98,12 +98,42 @@ export function getCityName(lat, lon) {
     }
 }
 
+export function fetchCityPolution(lat, lon) {
+    const APIKey = 'efa2ef11f117f7485b2fca8e87a3a2f5'
+    // const APIKey2 = '4b40d772d9815a753181161602f31524'
+    const API = `http://api.openweathermap.org/data/2.5/air_pollution/forecast?lat=${lat}&lon=${lon}&appid=${APIKey}`;
+
+    return function (dispatch) {
+        fetch(API)
+            .then(response => {
+                if (response.ok) {
+                    return response
+                }
+                throw Error('błąd')
+            })
+            .then(response => response.json())
+            .then(data => {
+                dispatch({
+                    type: FETCH_CITY_POLUTION,
+                    payload: data,
+                    error: false,
+                })
+            })
+            .catch(err => {
+                dispatch({
+                    type: FETCH_CITY_POLUTION_ERROR,
+                    error: true,
+                })
+            })
+    }
+}
+
 
 
 export function fetchCityWeather(city) {
     const APIKey = 'efa2ef11f117f7485b2fca8e87a3a2f5'
     // const APIKey2 = '4b40d772d9815a753181161602f31524'
-    const API = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${APIKey}&units=metric`;
+    const API = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${APIKey}&units=metric&lang=pl`;
     const time = new Date().toLocaleString()
 
     return function (dispatch) {
@@ -116,6 +146,7 @@ export function fetchCityWeather(city) {
             })
             .then(response => response.json())
             .then(data => {
+                console.log(data)
                 dispatch({
                     type: FETCH_CITY_WEATHER,
                     payload: data,
@@ -131,5 +162,23 @@ export function fetchCityWeather(city) {
                     error: true,
                 })
             })
+    }
+}
+
+export function startLoading() {
+    return function (dispatch) {
+        dispatch({
+            type: START_LOADING,
+            loading: true
+        })
+    }
+}
+
+export function endLoading() {
+    return function (dispatch) {
+        dispatch({
+            type: END_LOADING,
+            loading: false
+        })
     }
 }

@@ -21,7 +21,7 @@ class SearchForm extends Component {
         const { handleSubmit } = this.props
 
         return (
-            <form onSubmit={handleSubmit(this.getcityName)} >
+            <form className="search-form" onSubmit={handleSubmit(this.getcityName)} >
                 <Field name='search' component="input" type="text"></Field>
                 <button id="search" type="submit" >Wyszukaj miasto</button>
             </form >

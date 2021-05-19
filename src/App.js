@@ -6,16 +6,22 @@ import Header from './layouts/Header.js'
 import Navigation from './layouts/Navigation.js'
 import Page from './layouts/Page.js'
 import Footer from './layouts/Footer.js'
+// import { dzień, noc, wschód, zachód } from './images';
 
 
 class App extends Component {
+
+  componentDidMount() {
+    const time = new Date().toLocaleString()
+    console.log(time);
+  }
   render() {
     return (
       <Router>
         <div className="app">
-          <header>
+          {/* <header>
             {<Header />}
-          </header>
+          </header> */}
           <main>
             <aside>
               {<Navigation />}
