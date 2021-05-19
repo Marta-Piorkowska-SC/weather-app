@@ -5,7 +5,8 @@ import { connect } from 'react-redux';
 class SearchResult extends Component {
 
     render() {
-        const { date, error, city, sunrise, sunset, temp, preasure, wind, description, icon } = this.props.search
+      const { city, searchWeather } = this.props;
+        const { date, error, sunrise, sunset, temp, preasure, wind, description, icon } = searchWeather
         let content = null;
         let err = `Nie znaleziono wyników dla miasta ${city}`
         const sunriseTime = new Date(sunrise * 1000).toLocaleTimeString()
@@ -55,6 +56,7 @@ class SearchResult extends Component {
     }
 }
 const mapStateToProps = state => ({
-    search: state.search.searchWeather
+    searchWeather: state.search.searchWeather,
+    city: state.search.city,
 })
 export default connect(mapStateToProps, null)(SearchResult);

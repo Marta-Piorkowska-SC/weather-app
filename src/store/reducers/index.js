@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import searchReducer from './searchReducer';
+import searchReducer from './search/reducer';
 import { reducer as formReducer } from 'redux-form'
 
 

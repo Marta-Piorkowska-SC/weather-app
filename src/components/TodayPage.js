@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getLocation } from '../actions/searchActions'
+import { getLocation } from '../store/reducers/search/actions/getLocation'
 import Spinner from 'react-bootstrap/Spinner';
 
 class TodayPage extends Component {
@@ -9,7 +9,7 @@ class TodayPage extends Component {
     }
 
     componentDidMount() {
-        getLocation();
+        this.props.getLocation();
     }
 
     render() {
